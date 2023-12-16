@@ -1,0 +1,44 @@
+import random
+import string
+
+
+def hangman():
+    hangman_words_list = ['apple', 'banana', 'cat', 'dog']
+    hangman_choice = list(random.choice(hangman_words_list))
+
+    hangman_game = len(hangman_choice)*'_'
+    place_holder = list(hangman_game)
+    print(f"You have to guess: {hangman_game}")
+    user_guessed_letters = set('')
+
+    guess_count = 1
+
+    while guess_count <= 6:
+        if guess_count == 1:
+            print("You have not guessed any letters so far.")
+        else:
+            print(f"You have guessed :{' '.join(user_guessed_letters)}")
+
+        print(f"This is guess number {guess_count}. You have {6 - guess_count} guesses left.")
+        guess = input(f"Enter your guess here: ")
+
+        if guess in hangman_choice:
+            print(f"Good guess! {guess} is a letter that is part of the word")
+            word_index = hangman_choice.index(guess)
+            place_holder = list(place_holder)
+            place_holder[word_index] = guess
+            place_holder = ''.join(place_holder)
+
+        elif guess in user_guessed_letters:
+            print(f"You have already guess this before: {guess}")
+
+        else:
+            print("The guess does not adhere to the hangman rules")
+
+        print(f"You have to guess: {place_holder}")
+        guess_count += 1
+
+
+hangman()
+print("\nWelcome to Hangman. To play, enter guesses for individual alphabets below.")
+print("You get only 6 chances to guess the entire word\n")
